@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4kd8m37fabyq"]
+
+[ext_resource type="PackedScene" uid="uid://bpboe1c0634u2" path="res://scene/tile/base_tile.tscn" id="1_a2r7d"]
+[ext_resource type="Texture2D" uid="uid://bq15iu2ne7cop" path="res://asset/image/Tile/wall.png" id="2_33r5h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ktp6l"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uhb7i"]
+size = Vector2(128, 128)
+
+[node name="WallTile" instance=ExtResource("1_a2r7d")]
+
+[node name="Texture" parent="TileControl/NodeControl" index="0"]
+texture = ExtResource("2_33r5h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileControl/NodeControl/CollisionControl/Selectable" index="0"]
+shape = SubResource("RectangleShape2D_ktp6l")
+
+[node name="StaticBody2D" parent="TileControl/NodeControl/CollisionControl" index="1"]
+collision_layer = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileControl/NodeControl/CollisionControl/StaticBody2D" index="0"]
+shape = SubResource("RectangleShape2D_uhb7i")
+
+[node name="ScaleControl" parent="." index="2"]
+visible = false

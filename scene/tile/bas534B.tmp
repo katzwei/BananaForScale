@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpboe1c0634u2"]
+
+[ext_resource type="Script" path="res://Scripts/base_tile.gd" id="1_y75f7"]
+[ext_resource type="PackedScene" uid="uid://cg4gus8yufrii" path="res://Scenes/Components/selectable.tscn" id="2_5hvmq"]
+
+[node name="BaseTile" type="Node2D"]
+script = ExtResource("1_y75f7")
+
+[node name="Target" type="Marker2D" parent="."]
+
+[node name="TileControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 4
+
+[node name="NodeControl" type="AspectRatioContainer" parent="TileControl"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Texture" type="TextureRect" parent="TileControl/NodeControl"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="CollisionControl" type="CenterContainer" parent="TileControl/NodeControl"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="StaticBody2D" type="StaticBody2D" parent="TileControl/NodeControl/CollisionControl"]
+collision_layer = 3
+
+[node name="Selectable" parent="TileControl/NodeControl/CollisionControl" node_paths=PackedStringArray("node_to_select") instance=ExtResource("2_5hvmq")]
+collision_layer = 2
+collision_mask = 0
+node_to_select = NodePath("../..")
+
+[node name="ScaleControl" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Scale" type="HSlider" parent="ScaleControl"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 20)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 8
+value = 50.0

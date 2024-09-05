@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccjvsr6f3fxsb"]
+
+[ext_resource type="PackedScene" uid="uid://bpboe1c0634u2" path="res://scene/tile/base_tile.tscn" id="1_7fy01"]
+[ext_resource type="Texture2D" uid="uid://msbe6yc7vyud" path="res://asset/image/Tile/bridge.png" id="2_u13f4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qs1lc"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vvqx0"]
+size = Vector2(128, 128)
+
+[node name="BridgeTile" instance=ExtResource("1_7fy01")]
+
+[node name="Texture" parent="TileControl/NodeControl" index="0"]
+texture = ExtResource("2_u13f4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileControl/NodeControl/CollisionControl/Selectable" index="0"]
+shape = SubResource("RectangleShape2D_qs1lc")
+
+[node name="StaticBody2D" parent="TileControl/NodeControl/CollisionControl" index="1"]
+position = Vector2(0, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileControl/NodeControl/CollisionControl/StaticBody2D" index="0"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_vvqx0")

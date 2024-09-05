@@ -1,0 +1,96 @@
+[gd_scene load_steps=9 format=3 uid="uid://d3qd2nb0cr0d2"]
+
+[ext_resource type="Script" path="res://script/test.gd" id="1_sxc0t"]
+[ext_resource type="PackedScene" uid="uid://c4kd8m37fabyq" path="res://scene/tile/wall_tile.tscn" id="2_53le2"]
+[ext_resource type="PackedScene" uid="uid://c6hagn714t0jj" path="res://scene/tile/portal_tile.tscn" id="3_55ls7"]
+[ext_resource type="PackedScene" uid="uid://do5htdaf5wv0q" path="res://scene/tile/lader_tile.tscn" id="4_ayaci"]
+[ext_resource type="PackedScene" uid="uid://dcjec5bqje1iu" path="res://scene/tile/banana_tile.tscn" id="4_hwu0b"]
+[ext_resource type="PackedScene" uid="uid://ccjvsr6f3fxsb" path="res://scene/tile/bridge_tile.tscn" id="5_gqg52"]
+[ext_resource type="PackedScene" uid="uid://di1rwty2hhwsi" path="res://scene/character/character.tscn" id="5_sd504"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xvrl8"]
+size = Vector2(1280, 40)
+
+[node name="Level2" type="Node2D"]
+script = ExtResource("1_sxc0t")
+
+[node name="Floor" type="StaticBody2D" parent="."]
+position = Vector2(640, 700)
+
+[node name="ColorRect" type="ColorRect" parent="Floor"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -20.0
+offset_right = 640.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
+shape = SubResource("RectangleShape2D_xvrl8")
+
+[node name="Tiles" type="CanvasGroup" parent="."]
+
+[node name="BananaTile" parent="Tiles" instance=ExtResource("4_hwu0b")]
+scale = Vector2(0.5, 0.5)
+
+[node name="LaderTile" parent="Tiles" instance=ExtResource("4_ayaci")]
+position = Vector2(275, 680)
+max_scale = 4.0
+
+[node name="BridgeTile" parent="Tiles" instance=ExtResource("5_gqg52")]
+position = Vector2(403, 680)
+
+[node name="WallTile" parent="Tiles" instance=ExtResource("2_53le2")]
+position = Vector2(531, 680)
+
+[node name="WallTile2" parent="Tiles" instance=ExtResource("2_53le2")]
+position = Vector2(1216, 680)
+
+[node name="WallTile3" parent="Tiles" instance=ExtResource("2_53le2")]
+position = Vector2(1088, 680)
+
+[node name="WallTile4" parent="Tiles" instance=ExtResource("2_53le2")]
+position = Vector2(1088, 552)
+
+[node name="WallTile5" parent="Tiles" instance=ExtResource("2_53le2")]
+position = Vector2(1088, 424)
+
+[node name="WallTile6" parent="Tiles" instance=ExtResource("2_53le2")]
+position = Vector2(1216, 424)
+
+[node name="PortalTile" parent="Tiles" node_paths=PackedStringArray("exit_portal") instance=ExtResource("3_55ls7")]
+position = Vector2(531, 552)
+exit_portal = NodePath("../PortalTile2")
+
+[node name="PortalTile2" parent="Tiles" instance=ExtResource("3_55ls7")]
+position = Vector2(1216, 552)
+scaling_enabled = false
+
+[node name="WallTile7" parent="Tiles" instance=ExtResource("2_53le2")]
+position = Vector2(595, 296)
+
+[node name="Character" parent="." instance=ExtResource("5_sd504")]
+position = Vector2(30, 629)
+scale = Vector2(0.4, 0.4)
+
+[node name="Play" type="Button" parent="."]
+offset_left = 10.0
+offset_top = 684.0
+offset_right = 70.0
+offset_bottom = 716.0
+text = "BEGIN"
+
+[node name="Restart" type="Button" parent="."]
+offset_left = 80.0
+offset_top = 684.0
+offset_right = 140.0
+offset_bottom = 716.0
+text = "RETRY"
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://c6hagn714t0jj"]
+
+[ext_resource type="PackedScene" uid="uid://bpboe1c0634u2" path="res://scene/tile/base_tile.tscn" id="1_ms0rr"]
+[ext_resource type="Texture2D" uid="uid://dwft287m67u6d" path="res://asset/image/Tile/portal.png" id="2_q1bo4"]
+[ext_resource type="Script" path="res://script/portal_tile.gd" id="2_slxit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wmfsp"]
+size = Vector2(80, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bin2y"]
+size = Vector2(80, 128)
+
+[node name="PortalTile" instance=ExtResource("1_ms0rr")]
+script = ExtResource("2_slxit")
+
+[node name="Texture" parent="TileControl/NodeControl" index="0"]
+texture = ExtResource("2_q1bo4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileControl/NodeControl/CollisionControl/Selectable" index="0"]
+shape = SubResource("RectangleShape2D_wmfsp")
+
+[node name="StaticBody2D" parent="TileControl/NodeControl/CollisionControl" index="1"]
+collision_layer = 1
+
+[node name="Area2D" type="Area2D" parent="TileControl/NodeControl/CollisionControl" index="2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileControl/NodeControl/CollisionControl/Area2D" index="0"]
+shape = SubResource("RectangleShape2D_bin2y")
+
+[connection signal="body_entered" from="TileControl/NodeControl/CollisionControl/Area2D" to="." method="_on_area_2d_body_entered"]

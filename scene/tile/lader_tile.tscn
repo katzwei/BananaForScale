@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://do5htdaf5wv0q"]
+
+[ext_resource type="PackedScene" uid="uid://bpboe1c0634u2" path="res://scene/tile/base_tile.tscn" id="1_xrgq1"]
+[ext_resource type="Texture2D" uid="uid://dvfxhm2ij8d20" path="res://asset/image/Tile/lader.png" id="2_5w20q"]
+[ext_resource type="Script" path="res://script/ladder_tile.gd" id="2_ktv55"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kf2qh"]
+size = Vector2(112, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qnskp"]
+size = Vector2(112, 48)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_ji5hl"]
+a = Vector2(0, -64)
+b = Vector2(0, 64)
+
+[node name="LaderTile" instance=ExtResource("1_xrgq1")]
+script = ExtResource("2_ktv55")
+
+[node name="TargetUp" type="Marker2D" parent="." index="0"]
+position = Vector2(0, -128)
+
+[node name="Texture" parent="TileControl/NodeControl" index="0"]
+texture = ExtResource("2_5w20q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileControl/NodeControl/CollisionControl/Selectable" index="0"]
+position = Vector2(8, 0)
+shape = SubResource("RectangleShape2D_kf2qh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileControl/NodeControl/CollisionControl/StaticBody2D" index="0"]
+position = Vector2(8, -40)
+shape = SubResource("RectangleShape2D_qnskp")
+
+[node name="Area2D" type="Area2D" parent="TileControl/NodeControl/CollisionControl" index="2"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileControl/NodeControl/CollisionControl/Area2D" index="0"]
+shape = SubResource("SegmentShape2D_ji5hl")
+
+[connection signal="body_entered" from="TileControl/NodeControl/CollisionControl/Area2D" to="." method="_on_area_2d_body_entered"]
